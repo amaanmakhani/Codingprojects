@@ -1,3 +1,4 @@
+
 echo off
 echo "Running Test 1.."
 g++ -pedantic -Wall -Wextra -std=c++17 -o 01 01.cpp 
