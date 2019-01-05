@@ -49,7 +49,7 @@ int compare(std::vector<std::string>userinput) {							//function to compare inp
 				return a;
 		}
 	}
-	return 500;																//if no parts of the function fail return 1 which will indicate validity 
+	return -1;																//if no parts of the function fail return -1 which will indicate validity 
 }
 
 int main() {
@@ -64,8 +64,8 @@ int main() {
 	
 	index = compare(userinput);												//inputs userinput into a compare function
 	
-	if (index == 500) {														//outputs result of index then prints return based on function
-		std::cout << "Word ladder is valid." << std::endl;					// if return of 500 prints valid
+	if (index == -1) {														//outputs result of index then prints return based on function
+		std::cout << "Word ladder is valid." << std::endl;					// if return of -1 prints valid
 		
 		for (auto words : userinput) {										
 			
