@@ -1,14 +1,14 @@
 # Codingprojects
 Collection of code from assignments and other practice problems.
 Code from the following courses:
->
 
--App code for own project
 
-*App grade calculator functions 
+-App code
 
->
--CSC116
+*Grade calculator app functions 
+
+
+ -CSC116
 
 *Assignment code
 
@@ -16,9 +16,7 @@ Code from the following courses:
 
 *Automatic tester for assignment 5
 
->
--Seng 265
+  -Seng 265
 
->
--CSC 230
 
+  -CSC 230
