@@ -5,7 +5,7 @@ Code from the following courses:
 
 -App code
 
-*Grade calculator app functions 
+*Grade calculator app functions(swift)
 
 
  -CSC116
