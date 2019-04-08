@@ -1,0 +1,1 @@
+gcc -Wall -g -std=c99 seng.c -o test
