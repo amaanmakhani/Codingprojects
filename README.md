@@ -7,8 +7,8 @@ Collection of code from assignments and other projects. If you are looking for a
 - CSC 230 (Assembly)
   - Intro to assembly and embedded systems
 - Seng 265 (C and Python)
-  - Software development methods and testing teqnichues
-  - continuous program program
+  - Software development methods and testing teqnichyes
+  - Testers are in the automatic testers folder
 - Automatic testers (scripting unix and windows)
   - test scripts for assignments
 ## Code contained from the following projects:
