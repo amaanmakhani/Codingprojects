@@ -13,3 +13,4 @@ The Manufactoring Test Engineering team specializes in the testing of embedded m
 - UnitConfig.cs: takes in two configuration files and updates their data to be configured for the tests that are about to take place
 - Version.cs: Uses Windows Registry to get the driver version of a specific driver.
 - WMISettingsControl.cs: takes in properties and sets them to the wanted values passed in through the wmi query.
+- StartDTC.cs: Start DTC Service
