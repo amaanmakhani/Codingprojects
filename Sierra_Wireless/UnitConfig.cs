@@ -43,7 +43,7 @@ namespace UnitConfig
                         {
                             if (line != null)
                             {
-                                Regex rex = new Regex(@"(<ProductType>)(\d{2})(</ProductType>)");
+                                Regex rex = new Regex(@"(<ProductType>!)(\d{2}-?\d?)(</ProductType>)");
                                 Match match = rex.Match(line);
                                 if (match.Success)
                                 {   //if found replace in array
