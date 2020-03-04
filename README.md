@@ -3,7 +3,7 @@ Collection of code from assignments and other projects. If you are looking for a
 
 ## Code contained from the following courses:
 - CSC 116 (C++)
-  - Intro to advanced coding and C++
+  - Intro to advanced programming and C++
 - CSC 230 (Assembly)
   - Intro to assembly and embedded systems
 - Seng 265 (C and Python)
@@ -13,7 +13,7 @@ Collection of code from assignments and other projects. If you are looking for a
   - Data structures and algorithms I
   - Implementation of algorithms
 - Automatic testers (scripting unix and windows)
-  - test scripts for assignments
+  - Test scripts used for assignment testing
   
 ## Code contained from the Gradebook app project:
 - Currently in a private branch. To view please reach out to me.
