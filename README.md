@@ -9,7 +9,7 @@ Collection of code from assignments and other projects. If you are looking for a
 - Seng 265 (C and Python)
   - Software development methods and testing techniques
   - Testers are in the automatic testers folder
- - CSC 225 (Java)
+- CSC 225 (Java)
   - Data structures and algorithms I
   - Implementation of algorithms
 - Automatic testers (scripting unix and windows)
