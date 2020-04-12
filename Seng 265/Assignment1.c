@@ -6,8 +6,7 @@
 #define LINESIZE 80
 #define MAX_LINES 100
 /*Amaan Makhani
-V00883520
-seng 265 assignment 1
+Seng 265 assignment 1
 date started: Jan 29, 2019
 date due: Feb 12, 2019
 */
