@@ -6,7 +6,6 @@ Collection of code from assignments and other projects.
   - Intro to advanced programming and C++
 - CSC 225 (Java)
   - Data structures and algorithms I
-  - Implementation of algorithms and language data structures
 - CSC 230 (Assembly)
   - Intro to assembly and embedded systems
 - Seng 265 (C and Python)
