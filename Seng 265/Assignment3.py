@@ -6,7 +6,6 @@ import re
 """
 Seng 265 Assignment 3
 Amaan Makhani
-V00883520
 
 Assignment description:
 This File contains an advanced encoder and decoder.The biggest difference
