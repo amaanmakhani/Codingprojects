@@ -10,8 +10,7 @@ int encode(FILE *input, FILE *output) {
 	return 0;
 }
 /*Amaan Makhani
-V00883520
-seng 265 assignment 4
+Seng 265 assignment 4
 date started: April 7, 2019
 date due: March 27, 2019
 Linked list functions ideas from Zastre dynamic memory slides
