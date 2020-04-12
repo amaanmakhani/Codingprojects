@@ -11,7 +11,7 @@ Collection of code from assignments and other projects.
 - Seng 265 (C and Python)
   - Software development methods and testing techniques
   - Testers are in the automatic testers folder
-- Automatic testers (unix and windows scripts)
+- Automatic testers (Unix and Windows scripts)
   - Test scripts used for assignment testing
   
 ## Code contained from the Gradebook app project:
