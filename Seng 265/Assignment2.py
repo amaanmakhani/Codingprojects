@@ -9,7 +9,6 @@ import fileinput
 Seng 265
 Assignment 2
 Amaan Makhani
-V00883520
 
 Assignment description:
 This File contains a encoder is built to compress data for smaller transition by replacing
