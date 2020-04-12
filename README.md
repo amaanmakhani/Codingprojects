@@ -7,7 +7,7 @@ Collection of code from assignments and other projects.
 - CSC 225 (Java)
   - Data structures and algorithms I
   - Implementation of algorithms and language data structures
- - CSC 230 (Assembly)
+- CSC 230 (Assembly)
   - Intro to assembly and embedded systems
 - Seng 265 (C and Python)
   - Software development methods and testing techniques
