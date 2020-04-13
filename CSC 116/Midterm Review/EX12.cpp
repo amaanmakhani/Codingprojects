@@ -3,11 +3,10 @@
 #include <vector>
 #include <string>
 
-std::vector<int> positive(std::vector<int> input, int a) {
+std::vector<int> positive(std::vector<int> input, int min) {
 	std::vector<int> result;
-	
 	for (auto elem : input) {
-		if (elem > a) {
+		if (elem > min) {
 			result.push_back(elem);
 		}
 	}
@@ -17,18 +16,14 @@ std::vector<int> positive(std::vector<int> input, int a) {
 int main() {
 	std::vector<int>input{};
 	int number{};
-	int a{};
-
-	std::cin >> a;
-
+	int min{};
+	std::cin >> min;
 	while (std::cin >> number) {
 		input.push_back(number);
 	}
-	auto result = positive(input,a);
-	
+	auto result = positive(input,min);
 	for (auto elem : result) {
-	std::cout << elem<<std::endl;
+		std::cout << elem<<std::endl;
 	}
-	
 	return 0;
 }

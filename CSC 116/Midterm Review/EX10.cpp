@@ -6,24 +6,23 @@
 std::vector<std::string> caps(std::vector<std::string> words) {
 	std::vector<std::string> result;
 	std::string line;
-	bool wasspace=true;
+	bool wasSpace=true;
 	for (auto lines : words) {
 		line.clear();
-		wasspace = true;
+		wasSpace = true;
 		for (auto word : lines) {
-			
 			if (word == ' ') {
 				line.push_back(word);
-				wasspace = true;
+				wasSpace = true;
 			}
-			if (word != ' '&& !wasspace) {
+			if (word != ' '&& !wasSpace) {
 				line.push_back(word);
-				wasspace = false;
+				wasSpace = false;
 			}
-			if (word != ' '&& wasspace) {
+			if (word != ' '&& wasSpace) {
 				word=toupper(word);
 				line.push_back(word);
-				wasspace = false;
+				wasSpace = false;
 			}
 		}
 		result.push_back(line);
@@ -33,13 +32,10 @@ std::vector<std::string> caps(std::vector<std::string> words) {
 
 
 int main() {
-	std::vector<std::string> words{"hello    there buddy", "my name  is  amaan"};
-
+	std::vector<std::string> words{"hello    there friend", "I love  C++"};
 	auto result = caps(words);
-
 	for (auto elem : result) {
 		std::cout << elem << std::endl;
 	}
-
 	return 0;
 }

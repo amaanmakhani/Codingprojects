@@ -5,7 +5,6 @@
 
 std::vector<int> positive(std::vector<int> input) {
 	std::vector<int> result;
-	
 	for (auto elem : input) {
 		if (elem > 0) {
 			result.push_back(elem);
@@ -17,15 +16,12 @@ std::vector<int> positive(std::vector<int> input) {
 int main() {
 	std::vector<int>input{};
 	int number{};
-
 	while (std::cin >> number) {
 		input.push_back(number);
 	}
 	auto result = positive(input);
-	
 	for (auto elem : result) {
 	std::cout << elem<<std::endl;
 	}
-	
 	return 0;
 }

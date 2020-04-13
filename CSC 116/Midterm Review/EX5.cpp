@@ -3,23 +3,19 @@
 #include <vector>
 #include <string>
 
-std::string add(std::string a, int b, int c) {
-	std::string copy = a;
+std::string slice(std::string word, int begin, int end) {
 	std::string result;
-	
-	for (auto i = b; i <= c; i++) {
-		result.push_back(copy.at(i));
+	for (auto index = begin; i <= end; i++) {
+		result.push_back(word.at(index));
 	}
 	return result;
 }
 
 int main() {
-	std::string a{};
-	int b, c{};
-
-	std::cin >> a >> b >> c;
-
-	auto result = add(a, b, c);
+	std::string word{};
+	int begin, end{};
+	std::cin >> word >> begin >> end;
+	auto result = slice(word, begin, end);
 	std::cout << result << std::endl;
 	return 0;
 }

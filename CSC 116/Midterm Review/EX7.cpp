@@ -3,13 +3,13 @@
 #include <vector>
 #include <string>
 
-std::vector <int> range(std::vector<int> numbers,int a,int b) {
+std::vector <int> range(std::vector<int> numbers,int min,int max) {
 	std::vector<int> result;
 	for (auto elem : numbers) {
-		if (elem<a || elem>b) {
+		if (elem < min || elem > max) {
 			continue;
 		}
-		if (a <= elem || elem <= b) {
+		if (min <= elem && elem <= max) {
 			result.push_back(elem);
 		}
 	}
@@ -18,9 +18,9 @@ std::vector <int> range(std::vector<int> numbers,int a,int b) {
 
 int main() {
 	std::vector<int> numbers{1,2,3,4,5};
-	int a, b{};
-	std::cin >> a >> b;
-	auto result = range(numbers, a, b);
+	int min, max{};
+	std::cin >> min >> max;
+	auto result = range(numbers, min, max);
 	for (auto elem : result) {
 		std::cout << elem << std::endl;
 	}

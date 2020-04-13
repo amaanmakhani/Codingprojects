@@ -4,12 +4,10 @@
 #include <string>
 #include <cctype>
 
-std::string reverse(std::string input) {
-	
+std::string reverse(std::string input) {	
 	for (auto & elem : input) {
 		if (std::islower(elem)) {
 			elem=toupper(elem);
-			//why make a copy string
 		}
 		if (std::isupper(elem)) {
 			elem=tolower(elem);

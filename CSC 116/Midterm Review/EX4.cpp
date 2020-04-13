@@ -5,19 +5,18 @@
 
 std::string add(std::string word) {
 	std::string result;
-	char a{};
-
+	char output{};
 	for (unsigned int i=0; i<=word.size()-1;i++) {
-		a=word.at(i)+1;
-		result.push_back(a);
+		output=word.at(i)+1;
+		result.push_back(output);
 	}
 	return result;
 }
 
 int main() {
-	std::string a{};
-	std::cin >> a;
-	auto result = add(a);
+	std::string input{};
+	std::cin >> input;
+	auto result = input(a);
 	std::cout << result;
 	return 0;
 }

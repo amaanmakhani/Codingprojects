@@ -24,30 +24,24 @@ int minimum(std::vector <int> const &numbers) {
 	return min;
 }
 
-
 double median(std::vector <int> &numbers) {
 	std::sort(numbers.begin(), numbers.end());
 	if (numbers.size() % 2 == 0) {
 		float left = numbers.at(numbers.size() / 2 - 1);
 		float right = numbers.at(numbers.size() / 2);
 		return ((left + right) / 2);
-	}
-	else {
+	} else {
 		return numbers.at(numbers.size() / 2);
 	}
 }
 
-
 int average(std::vector <int> const &numbers) {
 	int sum{};
-
 	for (auto elem : numbers) {
 		sum += elem;
 	}
-
 	auto average = sum / numbers.size();
 	return average;
-
 }
 
 int main()
@@ -57,7 +51,6 @@ int main()
 	auto max = maximum(numbers);
 	auto med = median(numbers);
 	auto avg = average(numbers);
-
 	std::cout << min << std::endl;
 	std::cout << max << std::endl;
 	std::cout << med << std::endl;
