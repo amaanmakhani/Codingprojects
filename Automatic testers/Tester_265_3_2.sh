@@ -1,7 +1,7 @@
 for num in {11..19}
 do
-	#run test 11-19, compare the mtf files, use the output from cmp to echo message
-	#\e[31(32) and the -e option allows it to chnage colours of the output
+	#run test 11-19, compare the mtf files, use the output from cmp to echo the status
+	#\e[31(32) allows the output color to change
 	python3 encode.py use_to_test/test$num.txt
 	cmp use_to_test/test$num.mtf use_to_test/mtf_solutions/test$num.mtf
 	if [ $? -ne 0 ]; then

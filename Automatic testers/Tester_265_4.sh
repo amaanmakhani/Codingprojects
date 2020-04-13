@@ -1,10 +1,9 @@
 make
 for num in {0..19}
 do
-	#run test 0-19, compare the mtf files, use the output from cmp to echo message
-	#\e[31(32) and the -e option allows it to change colors of the output
-	if [ $num -ge 10 ];
-	then
+	#run test 0-19, compare the mtf files, use the output from cmp to echo the status
+	#\e[31(32) allows the output color to change
+	if [ $num -ge 10 ]; then
 		./mtf2text2 use_to_test/test$num.mtf
 		diff use_to_test/test$num.txt use_to_test/txt_solutions/test$num.txt>output.txt
 		if [ $? -ne 0 ]; then
@@ -20,5 +19,5 @@ do
 		else
 			echo -e "\e[32mTest 0$num passed\e[0m";
 		fi
-fi
+    fi
 done

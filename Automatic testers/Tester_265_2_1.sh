@@ -1,9 +1,8 @@
 for num in {0..10}
 do
-  #run test 0-11, compare the mtf files, use the output from cmp to echo message
-  #\e[31(32) and the -e option allows it to change colors of the output
-  if [ $num -eq 10 ];
-  then
+  #run test 0-11, compare the mtf files, use the output from cmp to echo the status
+  #\e[31(32) allows the output color to change
+  if [ $num -eq 10 ]; then
     python3 mtf2text.py use_to_test/test10.mtf
     diff use_to_test/test10.txt use_to_test/txt_solutions/test10.txt
     if [ $? -ne 0 ]; then
@@ -19,8 +18,9 @@ do
     else
       echo -e "\e[32mTest 0$num passed\e[0m";
     fi
-fi
+  fi
 done
+
 #test invalid case
 python3 mtf2text.py use_to_test/test10.txt
 if [ $? -eq 1 ]; then
