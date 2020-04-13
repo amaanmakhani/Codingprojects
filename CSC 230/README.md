@@ -1,2 +1,2 @@
 # Introduction to Computer Architecture
-Computer artitechure course. This file contains assembly code from multiple assignments. My first introduction to assembly code.
+## This course used the Atmel ATmega2560 micro controller with an AVR instruction set

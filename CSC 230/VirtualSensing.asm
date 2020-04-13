@@ -1,6 +1,11 @@
+;Generate random numbers to simulate the sensor signals, use them to control the LED Strip, and display the temperature or humidity. 
+;The two display modes are switched by long pressing the SELECT button (for more than 1 second) on the LCD shield.
+;The ﬁrst line is for showing the temperature reading or humidity reading.
+;The second line is for your V-number with the last 4 digits. 
+;Humidity random signal generated to unsigned value (in range 0 to 63). 
+;Temperature random signal to signed value by following a 6-bit signed magnitude encoding scheme with the 5th bit as the sign bit.
+
 #define LCD_LIBONLY
-; written by Amaan Makhani
-;define variables
 .equ ADC_BTN_SELECT = 0x316
 .equ TOP = 6249
 .equ A = 13
@@ -34,16 +39,16 @@ reset:
     sts OCR1BL, r16
 
     ;init ADC for Buttons
-    ldi r16, 1<<REFS0 ; 0x40  REFS=01: using external AVcc, ADLAR=0: right adjustment, MUX=00000: single end input from ADC0
-    sts ADMUX, r16
-    ldi r16, 0x05        ; use Timer/Counter 1 Compare Match B to trigger ADCconversion=
-    sts ADCSRB, r16
-    ldi r16, 0xAF ; ADEN=1: enable ADC; ADATE=1:auto-trigger, ADIE=1:enable interrupt; ADPS=111: prescalar as 128
-    sts ADCSRA, r16
-    ldi r16, 0xFE
-    sts DIDR0, r16 ; disable pins ADC1:7, to reduce power consumption
-    ser r16
-    sts DIDR2, r16 ; disable pins ADC8:15, to reduce power consumption
+    ldi r16, 1<<REFS0	;0x40  REFS=01: using external AVcc, ADLAR=0: right adjustment, MUX=00000: single end input from ADC0
+    sts ADMUX, r16       
+    ldi r16, 0x05   	;use Timer/Counter 1 Compare Match B to trigger ADCconversion=
+    sts ADCSRB, r16      
+    ldi r16, 0xAF 		;ADEN=1: enable ADC; ADATE=1:auto-trigger, ADIE=1:enable interrupt; ADPS=111: pre-scalar as 128
+    sts ADCSRA, r16      
+    ldi r16, 0xFE        
+    sts DIDR0, r16 		;disable pins ADC1:7, to reduce power consumption
+    ser r16              
+    sts DIDR2, r16 		;disable pins ADC8:15, to reduce power consumption
 	
 	sei
 	jmp start
@@ -351,7 +356,7 @@ display_vnum:
 	ret
 	
 ;Display v number	
-v_num:	.db "V-3520", 0	
+v_num:	.db "V-1234", 0	
 
 .dseg
 ; The program copies the strings from program memory

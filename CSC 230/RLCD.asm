@@ -1,3 +1,4 @@
+;Repeatedly update the content on LCD while illuminating LEDs randomly according to the random number generated every 1 second. 
 #define LCD_LIBONLY
 .include "lcd.asm"
 
@@ -11,13 +12,6 @@
 	ldi r23,0XFF
 	out DDRB, r22
 	sts DDRL, r23
-    ;initialization (comment this code because it conflicts with the driver of LCD,
-	;turning off the background light of LCD)
-    ;ldi r16, 0b00001010
-    ;out DDRB, r16
-	;ldi r16, 0b10101010
-    ;sts DDRL, r16h
-
 	call lcd_init
 
     ldi r16, SEED
@@ -34,26 +28,25 @@ repeat:
 	
     rjmp repeat
 
-;description: ; generate a random number in range 0~63
-;input: R16 - seed or previous random number
-;output:R16 - new random number 
+;Description: generate a random number in range 0~63
+;Input: R16 - seed or previous random number
+;Output: R16 - new random number 
 rand:
-	;generate random num
 	clr r0
 	clr r18
 	clr r17
-	ldi r17, A ;load A
-	ldi r18, C ;load C	
-	mul r16, r17 ;multiply A and Seed
-	mov r16, r0 ;move to reg 27
-	add r16, r18 ;add constant
-	andi r16, 0b00111111 ;modulus 64 which is 2^6 so only first 6 digits matter get rid of the rest of the numbers
+	ldi r17, A
+	ldi r18, C	
+	mul r16, r17
+	mov r16, r0
+	add r16, r18
+	andi r16, 0b00111111
 
 	ret
 
-;description: ; illuminate LEDs
-;input: R16 - controlling value
-;output:none
+;Description: ; illuminate LEDs
+;Input: R16 - controlling value
+;Output:none
 led:
 	; illuminate LEDs according to value in R16
 	clr r22
@@ -63,7 +56,6 @@ led:
 	ori r22, 0b00000010
 	sbrc r16, 1
 	ori r22, 0b00001000
-
 	;get values for light in port L
 	sbrc r16, 2
 	ori r23, 0b00000010
@@ -73,7 +65,6 @@ led:
 	ori r23, 0b00100000
 	sbrc r16, 5
 	ori r23, 0b10000000
-
 	;output values to lights
 	out PORTB, r22
 	sts PORTL, r23
@@ -81,9 +72,9 @@ led:
 	ret
 
 
-;description: convert a value to binary string
-;input: R16 - the value
-;output: "bstr" in data memory
+;Description: convert a value to binary string
+;Input: R16 - the value
+;Output: "bstr" in data memory
 itoa_binary:
 	;get binary value
 	ldi XL, low(bstr)
@@ -119,9 +110,9 @@ itoa_binary:
 
 	ret
 
-;description: convert a value to decimal string
-;input: R16 - the value
-;output: "dstr" in data memory
+;Description: convert a value to decimal string
+;Input: R16 - the value
+;Output: "dstr" in data memory
 itoa_decimal:
 	ldi ZL, low(dsstr)
 	ldi ZH, high(dsstr)
@@ -132,7 +123,7 @@ itoa_decimal:
 	ldi r17, '0'
 	mov r19, r16
 	mod_10:
-		;subtract 10 till lower than 10
+		;Subtract 10 till lower than 10
 		cpi r19, 10
 		brlo store
 		division:
@@ -140,14 +131,13 @@ itoa_decimal:
 			subi r19, 10
 			cpi r19, 10
 			brsh division
-		;change unsigned integer to character integer
+		;Change unsigned integer to character integer
 		add r18, r17
 		st z+, r18
 		clr r18
 		jmp mod_10
 		
 		store:		
-			;get digit of last one
 			add r19, r17
 			st z+, r19
 
@@ -158,9 +148,9 @@ itoa_decimal:
 	pop r19
 	ret
 
-;description: show binary on LCD at the 2st row (right aligned; 6 bits)
-;input: string in data memory with label "bstr"
-;output: none
+;Description: show binary on LCD at the 2st row (right aligned; 6 bits)
+;Input: string in data memory
+;Output: none
 show_binary_str:
 	
 	push r16
@@ -185,9 +175,9 @@ show_binary_str:
 
 	ret
 
-;description: show decimal on LCD at the 1st row (left aligned; two digits)
-;input: string in data memory with label "dstr"
-;output: none
+;Description: show decimal on LCD at the 1st row (left aligned; two digits)
+;Input: string in data memory
+;Output: none
 show_decimal_str:
 	push r16
 	ldi r16, 0x00
@@ -210,9 +200,9 @@ show_decimal_str:
 	ret
 
 
-;description: delay for some time
-;input: none
-;output: none
+;Description: delay for some time
+;Input: none
+;Output: none
 delay:
 	push r16
 	ldi r16, 0
@@ -226,5 +216,5 @@ loop_delay:
 
 .dseg
 
-	bstr: .byte 100	;for temporarily storing string (for binary display)
+	bstr: .byte 100		;for temporarily storing string (for binary display)
 	dsstr: .byte 100	;for temporarily storing string (for decimal display)

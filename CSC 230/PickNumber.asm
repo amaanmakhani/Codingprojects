@@ -1,10 +1,4 @@
-/*
- * picknum.asm
- *
- *  Created: Feb 6, 2019 
- *   Author: Amaan Makhani
- *	   Vnum: V00883520
- */ 
+;Pick out even numbers in range [20, 40) from a set of given numbers deﬁned in program memory and put them into data memory.
 
 .equ COUNT = 21
 
@@ -20,11 +14,9 @@ ldi yl, low(dest)
 ldi yh, high(dest)
 ldi r18, 0
 
-;numbers that are even are 60, 24, 20, 44, 38, 90, 40, 0, 22, 80, 100, 24, 18
-;numbers in range are 20-39 and even are
-;24, 20, 38, 22, 24
-;steps first loop through numbers to see if they are even 
-;then check if they are within the range
+;Steps:
+;Check if they are even 
+;Check if they are within the range
 
 load:
 	lpm r16, z+

@@ -1,18 +1,14 @@
-;Amaan Makhani
-;V00883520
-
-;parity 
-
+;Parity Flag is set to 1 when the number of bits in the calculation result in binary form is even. 
+;Otherwise it is set to 0. Write a program to simulate such a ﬂag. 
 .cseg 
 .org 0
 
-;number should be 257
-ldi r16, 0X56      ;load number
+ldi r16, 0X56
 ldi r19, 0XAB
 add r16, r19
 
-ldi r17, 0        ;hold a counter
-ldi r18, 0        ;hold loop counter
+ldi r17, 0
+ldi r18, 0
 
 loop:
     inc r18
