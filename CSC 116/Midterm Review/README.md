@@ -1,4 +1,4 @@
-##Midterm 1 Review Exercises:
+## Midterm 1 Review Exercises:
 For each of the following problems, write a syntactically correct C++ program that accomplishes the described task. You should write functions for each task and test them with sample inputs to ensure their correctness.
 
 - EX 1: Given a vector of integers, compute the minimum, maximum, and median value. Write each as a separate function. Recall that the median is the "middle" value of the sorted list. If there is an even number of elements, then the median is simply the average of the two middle elements. You can use the sort function covered in the labs to compute the median.
