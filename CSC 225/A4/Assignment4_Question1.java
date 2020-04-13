@@ -13,74 +13,51 @@ Description: Given two sorted arrays of size n and m.
              File name is taken as a command line arg.
 */
 
-class Sort
-{
-    static public void main(String[] args)
-    {
-        if(args.length > 0 && args[0].length() > 0)
-        {
-            try
-            {
+class Sort {
+    static public void main(String[] args) {
+        if(args.length > 0 && args[0].length() > 0) {
+            try {
                 File ArrayFile = new File(args[0]);
-                Scanner scanner = new Scanner(ArrayFile);
-               
+                Scanner scanner = new Scanner(ArrayFile);  
                 // Read line by line
-                while(scanner.hasNextLine())
-                {
+                while(scanner.hasNextLine()) {
                     String[] temp = scanner.nextLine().split(";");
-                    if(temp.length == 2)
-                    {
+                    if(temp.length == 2) {
                         String[] Result = Execute(temp[0].split(","), temp[1].split(","));
                         PrintArray(Result);
-                    }
-                    else
-                    {
+                    } else {
                         System.out.print("Input is formatted incorrectly");
                     }
-                    
-                    if(scanner.hasNextLine())
-                    {
+                    if(scanner.hasNextLine()) {
                         System.out.print("\n");
                     }
                 }
                 scanner.close();
-            }
-            catch(Exception e)
-            {
+            } catch(Exception e) {
                 System.out.println("Exception while reading file:");
                 System.out.print(e.getMessage());
             }
-        }
-        else
-        {
+        } else {
             System.out.print("No file arguments provided");
         }
     }
 
     // Runs in O(n+m) time
-    static private String[] Execute( String[] strArray1, String[] strArray2 )
-    {
+    static private String[] Execute( String[] strArray1, String[] strArray2 ) {
         int nIndexArray1 = 0;
         int nIndexArray2 = 0;
         int nIndexArray3 = 0;
         String[] strArray3 = new String[strArray1.length+strArray2.length];
-
-        while(strArray1.length > nIndexArray1 && strArray2.length > nIndexArray2)
-        {
-            if(Integer.parseInt(strArray1[nIndexArray1]) > Integer.parseInt(strArray2[nIndexArray2]))
-            {
+        while(strArray1.length > nIndexArray1 && strArray2.length > nIndexArray2) {
+            if(Integer.parseInt(strArray1[nIndexArray1]) > Integer.parseInt(strArray2[nIndexArray2])) {
                 strArray3[nIndexArray3] = strArray2[nIndexArray2];
                 nIndexArray2 += 1;
                 nIndexArray3 += 1;
-            }
-            else if(Integer.parseInt(strArray2[nIndexArray2]) > Integer.parseInt(strArray1[nIndexArray1]))
-            {
+            } else if(Integer.parseInt(strArray2[nIndexArray2]) > Integer.parseInt(strArray1[nIndexArray1])) {
                 strArray3[nIndexArray3] = strArray1[nIndexArray1];
                 nIndexArray1 += 1;
                 nIndexArray3 += 1;
-            }
-            else
-            {
+            } else {
                 // Numbers are equal, increment both indexes and put both in array
                 strArray3[nIndexArray3] = strArray1[nIndexArray1];
                 nIndexArray3 += 1;
@@ -90,38 +67,28 @@ class Sort
                 nIndexArray3 += 1;
             }
         }
-
-        while(strArray1.length > nIndexArray1)
-        {
+        while(strArray1.length > nIndexArray1) {
             strArray3[nIndexArray3] = strArray1[nIndexArray1];
             nIndexArray1 += 1;
             nIndexArray3 += 1;
         }
-
-        while(strArray2.length > nIndexArray2)
-        {
+        while(strArray2.length > nIndexArray2) {
             strArray3[nIndexArray3] = strArray2[nIndexArray2];
             nIndexArray2 += 1;
             nIndexArray3 += 1;
         }
-
         return strArray3;
     }
 
-    static private void PrintArray(String[] strArray)
-    {
+    static private void PrintArray(String[] strArray) {
         String strOutput = "";
-        for (String Elem : strArray) 
-        {
+        for (String Elem : strArray) {
             strOutput += Elem;
             strOutput +=", ";
         }
-        if(strOutput.length()>2)
-        {
+        if(strOutput.length()>2) {
             System.out.print(strOutput.substring(0, strOutput.length()-2));
-        }
-        else
-        {
+        } else {
             System.out.print("Unable to print array");
         }
     }

@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.File;
-
 /*
 Name: Amaan Makhani
 Class: CSC 225
@@ -40,11 +39,9 @@ public class DFS {
 		visited[vertex] = true;
 		System.out.println(vertex);
 		int counter = -1;
-		for (Integer entry : G[vertex]) 
-		{
+		for (Integer entry : G[vertex]) {
 			counter+=1;
-			if(entry == 1 && !visited[counter])
-			{
+			if(entry == 1 && !visited[counter]) {
 				DepthFirstSearchHelper(counter, G, visited);
 			}
 		}
@@ -60,7 +57,7 @@ public class DFS {
 				return;
 			}
 			System.out.printf("Reading input values from %s.\n",args[0]);
-		}else {
+		} else {
 			s = new Scanner(System.in);
 			System.out.printf("Reading input values from stdin.\n");
 		}
