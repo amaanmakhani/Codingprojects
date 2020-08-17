@@ -1,5 +1,5 @@
 # Coding projects
-Collection of code from assignments, practice problems, projects, and other course work.
+- Collection of code from assignments, practice problems, projects, and other course work.
 
 ## Code contained from the following courses:
 - CSC 116 (C++)
