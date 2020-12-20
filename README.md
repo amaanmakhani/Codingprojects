@@ -23,7 +23,6 @@
   - Testing using various tools such as JUnit, Selenium, and H2
 - SENG 360 
   - Security Engineering
-  - Using the SEED image to execute common security attacks
 - SENG 474 (Python)
   - Data Mining
 - ECE 355 (C)
