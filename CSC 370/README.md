@@ -9,3 +9,4 @@
   - The computation of selectivity using pg_class and pg_stats
   - The computation of the cost of a dense index
   - Explaining the DBMS execution strategy using cost
+  - A SQL query that computes the result of the row estimation and the selectivity calculation
