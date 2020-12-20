@@ -1,0 +1,11 @@
+# Database Systems
+- Queries:
+  - Complex queries on an existing DB
+- A4:
+  - Generates an HTML report using a user defined function and accepts input from the user through the program
+- A5:
+  - The creation of tables with appropriate constraints and the use of a trigger to keep track of table transaction history
+- A6:
+  - The computation of selectivity using pg_class and pg_stats
+  - The computation of the cost of a dense index
+  - Explaining the DBMS execution strategy using cost

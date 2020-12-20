@@ -1,4 +1,4 @@
-// Description: Search for password of sixe N and find the most frequent substring.
+// Description: Search for password of size N and find the most frequent substring.
 
 #include <iostream>
 #include <string>

@@ -1,0 +1,521 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Start of data gathering from pg_class and pg_stats
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ imdb=> \d persons
+                        Table "public.persons"
+    Column   |          Type          | Collation | Nullable | Default 
+  -----------+------------------------+-----------+----------+---------
+  pid       | character varying(200) |           | not null | 
+  lastname  | character varying(150) |           |          | 
+  firstname | character varying(100) |           |          | 
+  pindex    | character varying(10)  |           |          | 
+  gender    | character(1)           |           |          | 
+  Indexes:
+      "persons_pkey" PRIMARY KEY, btree (pid)
+      "personsgen" btree (gender)
+  Referenced by:
+      TABLE "directors" CONSTRAINT "directors_pid_fkey" FOREIGN KEY (pid) REFERENCES persons(pid) ON DELETE CASCADE
+      TABLE "roles" CONSTRAINT "roles_pid_fkey" FOREIGN KEY (pid) REFERENCES persons(pid) ON DELETE CASCADE
+
+  imdb=> \d pg_class
+                      Table "pg_catalog.pg_class"
+        Column        |     Type     | Collation | Nullable | Default 
+  ---------------------+--------------+-----------+----------+---------
+  relname             | name         |           | not null | 
+  relnamespace        | oid          |           | not null | 
+  reltype             | oid          |           | not null | 
+  reloftype           | oid          |           | not null | 
+  relowner            | oid          |           | not null | 
+  relam               | oid          |           | not null | 
+  relfilenode         | oid          |           | not null | 
+  reltablespace       | oid          |           | not null | 
+  relpages            | integer      |           | not null | 
+  reltuples           | real         |           | not null | 
+  relallvisible       | integer      |           | not null | 
+  reltoastrelid       | oid          |           | not null | 
+  relhasindex         | boolean      |           | not null | 
+  relisshared         | boolean      |           | not null | 
+  relpersistence      | "char"       |           | not null | 
+  relkind             | "char"       |           | not null | 
+  relnatts            | smallint     |           | not null | 
+  relchecks           | smallint     |           | not null | 
+  relhasoids          | boolean      |           | not null | 
+  relhaspkey          | boolean      |           | not null | 
+  relhasrules         | boolean      |           | not null | 
+  relhastriggers      | boolean      |           | not null | 
+  relhassubclass      | boolean      |           | not null | 
+  relrowsecurity      | boolean      |           | not null | 
+  relforcerowsecurity | boolean      |           | not null | 
+  relispopulated      | boolean      |           | not null | 
+  relreplident        | "char"       |           | not null | 
+  relispartition      | boolean      |           | not null | 
+  relfrozenxid        | xid          |           | not null | 
+  relminmxid          | xid          |           | not null | 
+  relacl              | aclitem[]    |           |          | 
+  reloptions          | text[]       |           |          | 
+  relpartbound        | pg_node_tree |           |          | 
+  Indexes:
+      "pg_class_oid_index" UNIQUE, btree (oid)
+      "pg_class_relname_nsp_index" UNIQUE, btree (relname, relnamespace)
+      "pg_class_tblspc_relfilenode_index" btree (reltablespace, relfilenode)
+
+  imdb=> SELECT relname, relpages, reltuples FROM pg_class WHERE relname = 'persons';
+  relname | relpages |  reltuples  
+  ---------+----------+-------------
+  persons |    32316 | 3.98473e+06
+  (1 row)
+
+  imdb=> \d pg_stats
+                      View "pg_catalog.pg_stats"
+          Column         |   Type   | Collation | Nullable | Default 
+  ------------------------+----------+-----------+----------+---------
+  schemaname             | name     |           |          | 
+  tablename              | name     |           |          | 
+  attname                | name     |           |          | 
+  inherited              | boolean  |           |          | 
+  null_frac              | real     |           |          | 
+  avg_width              | integer  |           |          | 
+  n_distinct             | real     |           |          | 
+  most_common_vals       | anyarray |           |          | 
+  most_common_freqs      | real[]   |           |          | 
+  histogram_bounds       | anyarray |           |          | 
+  correlation            | real     |           |          | 
+  most_common_elems      | anyarray |           |          | 
+  most_common_elem_freqs | real[]   |           |          | 
+  elem_count_histogram   | real[]   |           |          | 
+
+
+  imdb=> SELECT attname, null_frac, avg_width, n_distinct, correlation FROM pg_stats WHERE tablename = 'persons';
+
+    attname  | null_frac | avg_width | n_distinct | correlation 
+  -----------+-----------+-----------+------------+-------------
+  pid       |         0 |        16 |         -1 |    0.866697
+  lastname  |         0 |         7 |      47376 |    0.866715
+  firstname |    0.0199 |         7 |      14399 |   0.0156383
+  pindex    |  0.763633 |         2 |         39 |    0.187318
+  gender    |      0.07 |         2 |          2 |    0.535692
+  (5 rows)
+
+  imdb=> SELECT attname, most_common_vals FROM pg_stats WHERE tablename = 'persons';
+    attname  |                                                                                                                                                                                                                                                                                                                                        most_common_vals                                                                                                                                                                                                                                                                                                                                        
+  -----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  pid       | 
+  lastname  | {Smith,Williams,Jones,Johnson,Brown,Lee,Martin,Miller,Taylor,Davis,Anderson,Moore,Hall,Wilson,Harris,Thompson,Scott,Robinson,Young,Clark,Garcia,Kim,Thomas,Lewis,Hill,Walker,White,King,Kelly,Murphy,Allen,Campbell,Jackson,Phillips,Roberts,Adams,Stewart,Carter,Green,Rodriguez,Bennett,Cohen,Cook,Mitchell,Murray,Turner,Wang,Wright,Chen,Edwards,James,Morgan,Rogers,Wood,Collins,Evans,Hernandez,Bailey,Clarke,Hughes,Martinez,Perez,Ryan,Ward,Baker,Cox,Morris,Park,Parker,Ross,Stone,Wallace,Watson,Wong,Alexander,Chang,Ellis,Fox,Hayes,Martínez,Silva,Cooper,Diaz,Ford,Gonzalez,Hamilton,Li,Lopez,Reed,Richardson,Cruz,Fisher,Graham,Hansen,Moreno,Palmer,Peterson,Stevens,Wu,Castro}
+  firstname | {David,John,Michael,James,Chris,Robert,Paul,Daniel,Peter,Mark,Mike,Richard,Joe,Tom,Brian,Thomas,Andrew,Bill,Eric,Alex,Bob,Matt,Steve,Anna,Tim,Adam,Jason,Scott,Jack,Jeff,Kevin,Christopher,Jim,Sarah,William,Stephen,Anthony,Frank,Ben,George,Jennifer,Ryan,Matthew,Tony,Martin,Jonathan,Charles,Dan,Patrick,Sam,Lisa,Sean,Jessica,Laura,Justin,Dave,Nick,Joseph,Kate,Maria,Ron,Rob,Simon,Amanda,Josh,Michelle,Stephanie,Christian,Elizabeth,Carlos,Mary,Steven,Emily,Kim,Barbara,Nathan,The,Angela,Ashley,Ed,Karen,Rachel,Aaron,Nicole,Andy,Christine,Greg,Jon,Juan,Kelly,Nicholas,Susan,Alan,Andrea,Brandon,Gary,Jan,Linda,Brad,Craig}
+  pindex    | {I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XVII,XIX,XVIII,XV,XVI,XXIV,XXII,XX,XXV,XXI,XXVI,XXVII,XXIX,XXXII,XXIII,XXX,XXXV,XXVIII,XXXVI,XXXI,XXXIII,XXXIV,XXXVIII,XXXIX,XXXVII}
+  gender    | {M,F}
+  (5 rows)
+
+  imdb=> SELECT attname, most_common_freqs FROM pg_stats WHERE tablename = 'persons';
+    attname  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               most_common_freqs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+  -----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  pid       | 
+  lastname  | {0.0036,0.0032,0.0028,0.00266667,0.0023,0.00213333,0.0018,0.0018,0.00156667,0.00153333,0.0015,0.00143333,0.00133333,0.00133333,0.0013,0.0013,0.00126667,0.00116667,0.00116667,0.00113333,0.00113333,0.00113333,0.0011,0.00106667,0.00103333,0.00103333,0.00103333,0.001,0.000966667,0.000966667,0.000933333,0.0009,0.0009,0.0009,0.0009,0.000833333,0.000833333,0.0008,0.0008,0.0008,0.000766667,0.000766667,0.000766667,0.000766667,0.000766667,0.000766667,0.000766667,0.000766667,0.000733333,0.000733333,0.000733333,0.000733333,0.000733333,0.000733333,0.0007,0.0007,0.0007,0.000666667,0.000666667,0.000666667,0.000666667,0.000666667,0.000666667,0.000666667,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.000633333,0.0006,0.0006,0.0006,0.0006,0.0006,0.0006,0.0006,0.000566667,0.000566667,0.000566667,0.000566667,0.000566667,0.000566667,0.000566667,0.000566667,0.000566667,0.000533333,0.000533333,0.000533333,0.000533333,0.000533333,0.000533333,0.000533333,0.000533333,0.000533333,0.0005}
+  firstname | {0.00843333,0.0081,0.0081,0.00476667,0.00473333,0.00416667,0.00413333,0.00383333,0.00366667,0.0036,0.00356667,0.0035,0.0033,0.00326667,0.00316667,0.0031,0.00296667,0.00283333,0.0028,0.00273333,0.00263333,0.00256667,0.00253333,0.0025,0.00246667,0.00243333,0.00243333,0.00236667,0.00233333,0.0023,0.0023,0.00223333,0.00223333,0.00216667,0.00216667,0.00213333,0.0021,0.0021,0.00206667,0.002,0.002,0.002,0.00196667,0.00196667,0.00193333,0.0019,0.0018,0.0018,0.0018,0.0018,0.00176667,0.00173333,0.0017,0.0017,0.00166667,0.00163333,0.00163333,0.00156667,0.00156667,0.00153333,0.00153333,0.0015,0.0015,0.00146667,0.00146667,0.00146667,0.00146667,0.00143333,0.00143333,0.0014,0.0014,0.0014,0.00136667,0.00133333,0.00126667,0.00126667,0.00126667,0.00123333,0.00123333,0.00123333,0.00123333,0.00123333,0.0012,0.0012,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00113333,0.00113333,0.00113333,0.00113333,0.00113333,0.00113333,0.0011,0.0011}
+  pindex    | {0.0750667,0.0577667,0.0264333,0.0154333,0.0102333,0.0079,0.00633333,0.00513333,0.00393333,0.00293333,0.00286667,0.0027,0.00186667,0.0017,0.00143333,0.0012,0.0012,0.0011,0.00106667,0.000933333,0.000866667,0.0008,0.000766667,0.000733333,0.000733333,0.000566667,0.0005,0.0005,0.000466667,0.000466667,0.000466667,0.000433333,0.000366667,0.000333333,0.0003,0.000266667,0.000266667,0.0002,0.0001}
+  gender    | {0.600167,0.329833}
+  (5 rows)
+
+  imdb=> SELECT attname, histogram_bounds FROM pg_stats WHERE tablename = 'persons';
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  pid       | {"13, Cyril Neville & Tribe","Åkerlund, Alf","Amadon, Nathan","Apanui, Fiona","Auburn, Jorma (I)","Baldwin, Courtney","Barta, Romi","Bell, Chris (I)","Beyer, Tom (I)","Bobrova, Lidiya","Bowden, Jack (III)","Brochu, Benoît","Bulloch, Sally (I)","Calhoun, Rory (I)","Carr, Derryk","Chacon, Chapo",Chingy,"Cloar, Brian","Contillo, Sharon","Craig, Alexander Julian","D'Addio, Dave","Davy, Stephen (I)","de Los Reyes, Steven","Díaz, Pablo (II)","Donovan, Brenda","Durán, Carolina (II)","Elliott, William (X)","Evans, Ceri Gwynfryn","Fenech, Taylor (I)","Flitsanov, Gregory","Frazão, Tiago","Galloway Jr., Darrell 'D.J.'","Gelein, Igor (I)","Glick, Alexis","Gough, Tricia","Gruber, Cauê","Hallal, Wassim","Harring, Michael Lee","Hedges, Ami","Hewitt, Tyler (I)","Holmes, Adam (III)","Hughes, Mary R.","Ioli, Allisondra","Jaremenko, Katya","Johnston, Matt (XXI)","Kalkofen, Misty","Kellerman, John (II)","King, Andre (III)","Kolodzinski, Karol","Kull, May","Langston, Tom","Lee, Jackson (VII)","Leyendecker, Gingher","Lockard, Joe","Lueg, Lars Peter","Mahrens, Craig","Marie, Milfy","Maslove, Marlee","McCawley, John","Mechoff, Gerd","Micheal, Robert","Miya, Chelsea","Morch, Carsten","Mullen, Michael (II)","Narter, David (I)","Nigita, Romain","O'Connail, Connie","Origer, Claude","Pallister, Stephen","Patteson, Starke","Perron, Cheryl","Pitoëff, Ludmilla","Prescott, Julie Anne (I)","Radziwon, Monika","Rees, Kit","Rider, Chris (I)","Rodríguez, Edmundo H.","Roth, Pavel","Sackariason, Carolyn","Santana, Adriana (I)","Schleiff, Klaus","Sempowski, Brian","Shin, JiSook","Sirena, Toni","Sokolov, Andrey (IV)","Stapf, Alex","Straiton, Jonathan","Swasdiprom, Nutjaporn 'Bow'","Tassi, Karina","Thompson, Brian (LIV)","Torres, Mónica (I)","Turner, Kyron (II)","Van den Berghe, Gerrit","Verlaan, Marty","Wade, Cynthia (I)","Watkins, Taylor (II)","Whitaker, Deborah","Wilson, Juan","Wronski, Charidy","Young, Webster","Þórhallsson, Ragnar"}
+  lastname  | {.,Akbas,Amarjeet,Arai,Audette,Balfe,Barron,Beetham,Berthot,Bland,Borrakoti,Brazil,Bryant,Butts,Cappelletto,Catalan,Chaves,Cisneros,Conigliaro,"Covington II",Cutrone,Davidson,Deleo,DeVodier,Doel,Dubravin,Egholm,Erkan,Farrar,Fielding,Förster,Fujieda,Garcimartín,Ghosh,"Golden Retriever","Grant Jr.",Guillory,Hammill,Hassett,Hengstmangers,Hirsch,Horner,Hussain,Israileff,Jensen,Kaczor,Katz,Kibaro,Kodanev,Krishnamurali,Lam,Law,Lesser,Little,Lovell,Mack,Mani,Martín,Mayer,McKenna,Mendoza,Mills,Monroe,Moyer,Nakamoto,Ngata,Noyd,Olivier,Ousey,Parisier,Pelletier,Philip,Pope,Puiatti,Ramirez,Reisner,Ríos,Romy,Ruiz,Salinas,Sassi,Schramm,Severson,Shrimsley,Skelton,"'Soul' Beard",Steinsvoll,Suh,Taeger,Tempest,To,Tripathy,Uno,"van Rossum",Vigil,Walcott,Weinert,Wilkerson,Wulff,Yuen,Þórhallsson}
+  firstname | {A.,Ah,Alejandro,Ali,Amie,"Andre W.",Annette,Ariel,Audrey,Bear,"Besim Can",Bobby,Britain,Calvin,Caroline,Chad,Chloe,Clark,Constance,Daisuke,Dara,Deborah,Detlef,Dmitri,Doug,Eduard,Elisa,Emmy,Essie,Fanor,Florence,Freddie,Ga-yoon,"Gianna Rose",Godfried,Gulan,Han-Sol,Helen,Hirunya,Ice,Ireneo,"Jack J.","Jamie L.",Jay,Jen,Jet,Jodie,Jonathen,Josephine,Julian,Kamalie,Kathryn,Ken,Kirby,Kurosh,Lars-Olof,Leila,Lili,Lorenzo,Lui,Maev,Marc,"María José",Mariya,Mason,Meagan,Michaela,Milivoje,Monica,Nadja,Nazira,Nili,Olayo,Paal,Patxi,Pete,Piotr,Rainey,Rebecca,Ricardo,Roberto,Roosa,Rusty,Samir,Savannah,Shailesh,Shinji,Sofya,Stefano,Susy,Tânia,Terry,"Tit Gomez",Tracy,Uros,Verónica,Vishal,Wesley,Yash,Yuriy,Þórarinn}
+  pindex    | 
+  gender    | 
+  (5 rows)
+-- End of data gathering from pg_class and pg_stats
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Part A
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. select * from persons where firstname = 'Laura';
+    Using EXPLAIN ANALYZE, record the number of tuples that postgres estimates each query will
+    return and the actual number of tuples returned.
+
+    imdb=> EXPLAIN ANALYZE select * from persons where firstname = 'Laura';
+                                                            QUERY PLAN                                                          
+    -----------------------------------------------------------------------------------------------------------------------------
+    Gather  (cost=1000.00..54747.22 rows=6774 width=34) (actual time=0.776..235.290 rows=8254 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Parallel Seq Scan on persons  (cost=0.00..53069.82 rows=2822 width=34) (actual time=1.272..215.772 rows=2751 loops=3)
+                Filter: ((firstname)::text = 'Laura'::text)
+                Rows Removed by Filter: 1325523
+    Planning time: 2.981 ms
+    Execution time: 235.790 ms
+    (8 rows)
+
+    imdb=> select * from persons where firstname = 'Laura';
+    (8254 rows)
+
+    (a) Using only the information in pg stats and pg class compute the selectivity of the where
+    clause
+
+    Laura is in the histogram as a most frequent value and her corresponding selectivity is:
+    imdb=> SELECT (most_common_vals::text::text[])[54] FROM pg_stats WHERE tablename = 'persons' AND attname = 'firstname';
+    most_common_vals 
+    ------------------
+    Laura
+    (1 row)
+
+    imdb=> SELECT (most_common_freqs::text::real[])[54] FROM pg_stats WHERE tablename = 'persons' AND attname = 'firstname';
+    most_common_freqs 
+    -------------------
+                0.0017
+    (1 row)
+
+    (b) using this selectivity, compute the expected number of matching tuples
+    Show all your work
+        
+    rows = rel_cardinality * selectivity
+    rows = 3.98473e+06 * 0.0017
+    rows = 6,774.041
+    rows = 6,774 (rounded)
+
+2. select * from persons where firstname IS NULL;
+    Using EXPLAIN ANALYZE, record the number of tuples that postgres estimates each query will
+    return and the actual number of tuples returned.
+
+    imdb=> EXPLAIN ANALYZE select * from persons where firstname IS NULL;
+                                                            QUERY PLAN                                                           
+    -------------------------------------------------------------------------------------------------------------------------------
+    Gather  (cost=1000.00..57848.66 rows=79296 width=34) (actual time=0.399..214.855 rows=80185 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Parallel Seq Scan on persons  (cost=0.00..48919.06 rows=33040 width=34) (actual time=0.843..178.891 rows=26728 loops=3)
+                Filter: (firstname IS NULL)
+                Rows Removed by Filter: 1301546
+    Planning time: 0.074 ms
+    Execution time: 218.610 ms
+    (8 rows)
+
+    imdb=> select * from persons where firstname IS NULL;
+    (80185 rows)
+
+    (a) Using only the information in pg stats and pg class compute the selectivity of the where
+    clause
+
+    The null fraction of the first name found from pg_stats is 0.0199.
+
+    (b) using this selectivity, compute the expected number of matching tuples
+    Show all your work
+        
+    rows = rel_cardinality * selectivity
+    rows = 3.98473e+06 * 0.0199
+    rows = 79,296.127
+    rows = 79,296 (rounded)
+
+3. select * from persons where firstname = 'Alejandro'
+    Using EXPLAIN ANALYZE, record the number of tuples that postgres estimates each query will
+    return and the actual number of tuples returned.
+
+    imdb=> EXPLAIN ANALYZE select * from persons where firstname = 'Alejandro';
+                                                            QUERY PLAN                                                         
+    ---------------------------------------------------------------------------------------------------------------------------
+    Gather  (cost=1000.00..54091.12 rows=213 width=34) (actual time=22.349..252.479 rows=2246 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Parallel Seq Scan on persons  (cost=0.00..53069.82 rows=89 width=34) (actual time=11.579..233.641 rows=749 loops=3)
+                Filter: ((firstname)::text = 'Alejandro'::text)
+                Rows Removed by Filter: 1327526
+    Planning time: 3.240 ms
+    Execution time: 252.666 ms
+    (8 rows)
+
+    imdb=> select * from persons where firstname = 'Alejandro';
+    (2246 rows)
+    
+    (a) Using only the information in pg stats and pg class compute the selectivity of the where
+    clause
+
+    You do not need to use the histogram for this question. 
+    Postgres assumes that any value not in the MFV is equally likely to appear (use n_distinct in pg_stats)
+    The number of distinct first names is 14399.
+    So 'Alejandro' is assumed to be one of these values unique values.
+    Selectivity(firstname = 'Alejandro') = 1/14399
+    Selectivity(firstname = 'Alejandro') = 6.9449267310229877074796860893118e-5
+
+    (b) using this selectivity, compute the expected number of matching tuples
+    Show all your work
+        
+    rows = rel_cardinality * selectivity
+    rows = 3.98473e+06 * (1/14399)
+    rows = 276.736
+    rows = 277 (rounded)
+
+4. select * from persons where firstname IS NULL or firstname = 'Alejandro';
+    Using EXPLAIN ANALYZE, record the number of tuples that postgres estimates each query will
+    return and the actual number of tuples returned.
+
+    imdb=> EXPLAIN ANALYZE select * from persons where firstname IS NULL or firstname = 'Alejandro';
+                                                            QUERY PLAN                                                           
+    -------------------------------------------------------------------------------------------------------------------------------
+    Gather  (cost=1000.00..62020.32 rows=79505 width=34) (actual time=0.441..245.511 rows=82431 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Parallel Seq Scan on persons  (cost=0.00..53069.82 rows=33127 width=34) (actual time=0.891..214.771 rows=27477 loops=3)
+                Filter: ((firstname IS NULL) OR ((firstname)::text = 'Alejandro'::text))
+                Rows Removed by Filter: 1300798
+    Planning time: 2.790 ms
+    Execution time: 249.771 ms
+    (8 rows)
+
+    imdb=> select * from persons where firstname IS NULL or firstname = 'Alejandro';
+    (82431 rows)
+
+    (a) Using only the information in pg stats and pg class compute the selectivity of the where
+    clause
+
+    Using the POSTGRES documentation, we see that the planner assumes that the two conditions are independent.
+    So that the individual selectivities of the clauses can be multiplied together.
+
+    The selectivity of the disjunction of two clauses is the sum of their selectivities minus the selectivity of their conjunction.
+    The selectivity of the conjunction of two clauses is the product of their selectivity
+
+    Selectivity(firstname IS NULL or firstname = 'Alejandro') = Selectivity(firstname IS NULL) + Selectivity(firstname = 'Alejandro') - Selectivity(firstname IS NULL AND firstname = 'Alejandro')
+    Selectivity(firstname IS NULL or firstname = 'Alejandro') must be 0 becuase the firstname canot be null and have a value.
+    Selectivity(firstname IS NULL or firstname = 'Alejandro') = 0.0199 + (1/14399)- 0
+    Selectivity(firstname IS NULL or firstname = 'Alejandro') = 0.01996944926731022987707479686089
+
+    (b) using this selectivity, compute the expected number of matching tuples
+    Show all your work
+
+    rows = rel_cardinality * selectivity
+    rows = 3.98473e+06 * 0.01996944926731022987707479686089
+    rows = 79,572.8635 
+    rows = 79,573(rounded)
+
+5. select * from persons where firstname < 'Alejandro';
+    Using EXPLAIN ANALYZE, record the number of tuples that postgres estimates each query will
+    return and the actual number of tuples returned.
+
+    imdb=> EXPLAIN ANALYZE select * from persons where firstname < 'Alejandro';
+                                                            QUERY PLAN                                                           
+    -------------------------------------------------------------------------------------------------------------------------------
+    Gather  (cost=1000.00..62049.42 rows=79796 width=34) (actual time=0.976..353.901 rows=81547 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Parallel Seq Scan on persons  (cost=0.00..53069.82 rows=33248 width=34) (actual time=1.052..317.556 rows=27182 loops=3)
+                Filter: ((firstname)::text < 'Alejandro'::text)
+                Rows Removed by Filter: 1301092
+    Planning time: 2.589 ms
+    Execution time: 358.263 ms
+    (8 rows)
+
+    imdb=> select * from persons where firstname < 'Alejandro';
+    (81547 rows)
+    
+    (a) Using only the information in pg stats and pg class compute the selectivity of the where
+    clause
+
+    Alejandro is a bucket boundry in the histogram. So to calculate < or > then we include all the buckets that could match.
+    Since we must be less then Alejandro we include the first and the second buckets.
+    
+    Histogram visual:
+    A.________Ah________Alejandro 
+    A. <= Bucket 1 Values < Ah
+    Ah <= Bucket 2 Values < Alejandro
+    
+    Alejandro is a bucket boundry in the histogram. To calaculate the selectivity of a historam bound is as follows:
+    First get the sum of the MFV portion
+    imdb=> SELECT SUM(t) FROM unnest(ARRAY[0.00843333,0.0081,0.0081,0.00476667,0.00473333,0.00416667,0.00413333,0.00383333,0.00366667,0.0036,0.00356667,0.0035,0.0033,0.00326667,0.00316667,0.0031,0.00296667,0.00283333,0.0028,0.00273333,0.00263333,0.00256667,0.00253333,0.0025,0.00246667,0.00243333,0.00243333,0.00236667,0.00233333,0.0023,0.0023,0.00223333,0.00223333,0.00216667,0.00216667,0.00213333,0.0021,0.0021,0.00206667,0.002,0.002,0.002,0.00196667,0.00196667,0.00193333,0.0019,0.0018,0.0018,0.0018,0.0018,0.00176667,0.00173333,0.0017,0.0017,0.00166667,0.00163333,0.00163333,0.00156667,0.00156667,0.00153333,0.00153333,0.0015,0.0015,0.00146667,0.00146667,0.00146667,0.00146667,0.00143333,0.00143333,0.0014,0.0014,0.0014,0.00136667,0.00133333,0.00126667,0.00126667,0.00126667,0.00123333,0.00123333,0.00123333,0.00123333,0.00123333,0.0012,0.0012,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00116667,0.00113333,0.00113333,0.00113333,0.00113333,0.00113333,0.00113333,0.0011,0.0011]) t;
+        sum     
+    ------------
+    0.21716667
+    (1 row)
+
+    So since the histogram, null, and MFV make up the whole area of 1 we have.
+    1 = histogram + null + MFV
+
+    Add in the portions of the null and the sum as the MFV as shown found above.
+
+    1 = histogram + 0.0199 + 0.21716667
+    histogram = 0.76293333
+
+    This means each bucket is 0.0076293333
+
+    Selectivity(firstname < 'Alejandro') = (#of buckets * portion of the bucket) + freq of MFV
+    Selectivity(firstname < 'Alejandro') = (2 * 0.0076293333) + freq of MFV
+
+    Matching MFV and their freq
+    Aaron  :  0.0012
+    Adam   :  0.00243333
+    Alan   :  0.00113333
+
+    Selectivity(firstname < 'Alejandro') = (2 * 0.0076293333) + 0.0012 + 0.00243333 + 0.00113333
+    = 0.0200253266
+
+    (b) using this selectivity, compute the expected number of matching tuples
+    Show all your work    
+    
+    rows = rel_cardinality * selectivity
+    rows = 3.98473e+06 * 0.0200253266
+    rows = 79,795.5196
+    rows = 79,796 (rounded)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Bonus part
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  A single SQL query that computes the result of the estimation for #5 using the data stored in the pg stats and pg class relations only! 
+  Your query should be generic enough that it should correctly compute the selectivity and number of matching tuples for query (5) 
+  The firstname provided is a boundary of a histogram
+  To fill in with your desired result:
+  <your relation name>
+  <your attribute name>
+  <your attribute value>
+
+  The generic query that you can fill in for use:
+
+      -- Enter you desired varaibles here
+  WITH userinput(relname, attname, attvalue) as
+      (SELECT '<your relation name>', '<your attribute name>', '<your attribute value>'),
+      -- Table below holds unnested mfv values and freqs
+      mfvtable(mfv, mfvfreq) as
+      (SELECT unnest((SELECT most_common_vals::text::text[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput))), 
+              unnest((SELECT most_common_freqs::text::real[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)))),
+      -- Table below holds unnested histogram boundaries
+      histogrambounds(bounds) as
+      (SELECT unnest((SELECT histogram_bounds::text::text[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)))),
+      -- Table below holds the portoion of the histogram after excluding null and MFV values
+      histogramportion(portion) as
+      (SELECT (1 - (SELECT null_frac FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)) - sum(mfvfreq))/100 FROM mfvtable),
+      -- Table below holds the num of buckets needed
+      mfvstoinclude(additionalfreq) as
+      (SELECT sum(mfvfreq) FROM mfvtable WHERE mfv < (select attvalue FROM userinput)),
+      -- Table below holds general calcuation values needed
+      calculationvalues(numBuckets, numTuples) as 
+      (SELECT COUNT(*), (SELECT reltuples FROM pg_class WHERE relname = (select relname FROM userinput)) FROM histogrambounds WHERE bounds < (select attvalue FROM userinput))
+      -- Output data using values from the created tables
+      SELECT numTuples as rows, ((numBuckets * portion) + additionalfreq) as selectivity, ((numBuckets * portion) + additionalfreq) * numTuples as expected_rows_unrounded, ROUND(((numBuckets * portion) + additionalfreq) * numTuples) expected_rows_rounded
+      FROM calculationvalues NATURAL JOIN histogramportion NATURAL JOIN mfvstoinclude;
+
+  My filled in query for question number 5:
+  
+      -- Enter you desired varaibles here
+  WITH userinput(relname, attname, attvalue) as
+      (SELECT 'persons', 'firstname', 'Alejandro'),
+      -- Table below holds unnested mfv values and freqs
+      mfvtable(mfv, mfvfreq) as
+      (SELECT unnest((SELECT most_common_vals::text::text[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput))), 
+              unnest((SELECT most_common_freqs::text::real[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)))),
+      -- Table below holds unnested histogram boundaries
+      histogrambounds(bounds) as
+      (SELECT unnest((SELECT histogram_bounds::text::text[] FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)))),
+      -- Table below holds the portoion of the histogram after excluding null and MFV values
+      histogramportion(portion) as
+      (SELECT (1 - (SELECT null_frac FROM pg_stats WHERE tablename = (select relname FROM userinput) AND attname = (select attname FROM userinput)) - sum(mfvfreq))/100 FROM mfvtable),
+      -- Table below holds the num of buckets needed
+      mfvstoinclude(additionalfreq) as
+      (SELECT sum(mfvfreq) FROM mfvtable WHERE mfv < (select attvalue FROM userinput)),
+      -- Table below holds general calcuation values needed
+      calculationvalues(numBuckets, numTuples) as 
+      (SELECT COUNT(*), (SELECT reltuples FROM pg_class WHERE relname = (select relname FROM userinput)) FROM histogrambounds WHERE bounds < (select attvalue FROM userinput))
+      -- Output data using values from the created tables
+      SELECT numTuples as rows, ((numBuckets * portion) + additionalfreq) as selectivity, ((numBuckets * portion) + additionalfreq) * numTuples as expected_rows_unrounded, ROUND(((numBuckets * portion) + additionalfreq) * numTuples) expected_rows_rounded
+      FROM calculationvalues NATURAL JOIN histogramportion NATURAL JOIN mfvstoinclude;
+
+  The result from running this query
+  imdb-> FROM calculationvalues NATURAL JOIN histogramportion NATURAL JOIN mfvstoinclude;
+     rows     |    selectivity     | expected_rows_unrounded | expected_rows_rounded 
+  -------------+--------------------+-------------------------+-----------------------
+  3.98471e+06 | 0.0200253273360431 |        79795.2021905137 |                 79795
+  (1 row)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Part B
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  imdb=> EXPLAIN ANALYZE select * from persons where pid > 'James' and pid < 'Spock';
+                                                        QUERY PLAN                                                      
+  ----------------------------------------------------------------------------------------------------------------------
+  Seq Scan on persons  (cost=0.00..92087.01 rows=1642316 width=34) (actual time=60.931..1126.632 rows=1717109 loops=1)
+    Filter: (((pid)::text > 'James'::text) AND ((pid)::text < 'Spock'::text))
+    Rows Removed by Filter: 2267715
+  Planning time: 2.989 ms
+  Execution time: 1204.324 ms
+  (5 rows)
+
+  Why does this query ignore the index and instead uses a sequential scan of the heap? The index a b+tree
+  and it is dense.
+
+  demonstrate that cost(methodA) > cost(methodB)
+
+  The cost of a sequential search is:
+  B(R) = #tuples/ #tuples per block
+  We use pg_class to get the following information
+  relname | relpages |  reltuples  
+  ---------+----------+-------------
+  persons |    32316 | 3.98473e+06
+  (1 row)
+
+  We have B(R) = relpages i.e. the total pages occupied by the rel as each block is vistited in a seq scan.
+  So the cost of a sequential scan is 32316.
+
+  The cost of a using a b+tree index and where the index is dense search is:
+  cost = (h-1) + upperbound(#matching tuples/(n*fill)) + #expected matching tuples
+  cost of transversing the index to the leaves: h-1
+  upperbound(#expected matching tuples/(n*fill)) : The number of blocks in the index needed to store the number of matching tuples.
+  #expected matching tuples = |R| * selectivity
+
+  pid has no null frac or MFV so histogram makes up 100%
+  Each bucket represents 1%
+  Selectivity(pid > 'James' and pid < 'Spock') = #of buckets * portion of the bucket
+  The histogram bounds that contain tuples we want:
+  part of "Ioli, Allisondra"
+  "Jaremenko, Katya"
+  "Johnston, Matt (XXI)"
+  "Kalkofen, Misty"
+  "Kellerman, John (II)"
+  "King, Andre (III)"
+  "Kolodzinski, Karol"
+  "Kull, May"
+  "Langston, Tom"
+  "Lee, Jackson (VII)"
+  "Leyendecker, Gingher"
+  "Lockard, Joe"
+  "Lueg, Lars Peter"
+  "Mahrens, Craig"
+  "Marie, Milfy"
+  "Maslove, Marlee"
+  "McCawley, John"
+  "Mechoff, Gerd"
+  "Micheal, Robert"
+  "Miya, Chelsea"
+  "Morch, Carsten"
+  "Mullen, Michael (II)"
+  "Narter, David (I)"
+  "Nigita, Romain"
+  "O'Connail, Connie"
+  "Origer, Claude"
+  "Pallister, Stephen"
+  "Patteson, Starke"
+  "Perron, Cheryl"
+  "Pitoëff, Ludmilla"
+  "Prescott, Julie Anne (I)"
+  "Radziwon, Monika"
+  "Rees, Kit"
+  "Rider, Chris (I)"
+  "Rodríguez, Edmundo H."
+  "Roth, Pavel"
+  "Sackariason, Carolyn"
+  "Santana, Adriana (I)"
+  "Schleiff, Klaus"
+  "Sempowski, Brian"
+  "Shin, JiSook"
+  "Sirena, Toni"
+  "Sokolov, Andrey (IV)"
+  part of "Stapf, Alex"
+
+  --Important: I am not including the partial buckets as I was unable to find their width to get the portion include.
+
+  Selectivity(pid > 'James' and pid < 'Spock') = (#of buckets bounds - 1) * 0.01
+  Selectivity(pid > 'James' and pid < 'Spock') = (42- 1) * 0.01
+  Selectivity(pid > 'James' and pid < 'Spock') = 0.41
+  #expected matching tuples = 3.98473e+06 * 0.41
+  #expected matching tuples = 1,633,739.3
+  Without including the cost of transvering the index tree, or the number of blocks storing the index we can see the expected tuples is huge.
+  This is way larger than the cost of the seq scan due to the number of indexed blocks having to be visited.
+
+  Therefore cost(sequential scan) > cost(index) so DBMS ignores the index and executes the seq scan.

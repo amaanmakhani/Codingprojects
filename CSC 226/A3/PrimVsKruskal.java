@@ -1,6 +1,5 @@
 /* 
 Amaan Makhani
-V00883520
 June 22, 2020
 Description: Compare Prim's vs. Kruskals algorithm creation process.
 			 Implemented a early detection system to detect if the trees are different.
