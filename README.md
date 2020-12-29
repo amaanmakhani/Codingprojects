@@ -21,6 +21,8 @@
   - Software Testing
   - An introduction to the testing of large-scale systems and testing techniques 
   - Testing using various tools such as JUnit, Selenium, and H2
+- SENG 321
+  - Requirements Engineering
 - SENG 360 
   - Security Engineering
 - SENG 474 (Python)
