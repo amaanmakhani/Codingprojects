@@ -29,6 +29,10 @@
   - Data Mining
 - ECE 355 (C)
   - Microprocessor-Based Systems
+- ECE 455 (C)
+  - Real Time Computer Systems Design Project
+  - Techniques to guarantee deadline sensitive tasks complete by their deadline
+  - FreeRTOS was used as the real time operating system
 - Automatic testers (Unix and Windows scripts)
   - Test scripts used for assignment testing
   
