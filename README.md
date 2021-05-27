@@ -27,6 +27,7 @@
   - Security Engineering
 - SENG 474 (Python)
   - Data Mining
+  - Tennis prediction model project
 - ECE 355 (C)
   - Microprocessor-Based Systems
 - ECE 455 (C)
