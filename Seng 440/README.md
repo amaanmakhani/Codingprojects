@@ -1,0 +1,14 @@
+# Embedded Systems
+- Characteristics and design of embedded systems.
+- Techniques for specification, exploration and refinement.
+- System partitioning and hardware/software co-design.
+- Tools for validation, verification and simulation.
+- Final project dealt with improving matrix inversion
+  - 13-bit signed integers
+  - 10X10 matrix
+  - Test bench contained:
+    - A well-conditioned matrix
+    - A ill-conditioned matrix
+  - Used Gauss-Jordan algorithm with pivoting and integer arithmetic
+  - A pure-software solution was created and optimized with a software solution
+  - Hardware support was simulated for vanishing the column elements
