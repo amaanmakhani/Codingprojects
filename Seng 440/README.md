@@ -1,9 +1,9 @@
 # Embedded Systems
-- Characteristics and design of embedded systems.
-- Techniques for specification, exploration and refinement.
-- System partitioning and hardware/software co-design.
-- Tools for validation, verification and simulation.
-- Final project dealt with improving matrix inversion
+- Characteristics and design of embedded systems
+- Techniques for specification, exploration and refinement
+- System partitioning and hardware/software co-design
+- Tools for validation, verification and simulation
+- Final project dealt with improving matrix inversion:
   - 13-bit signed integers
   - 10X10 matrix
   - Test bench contained:
