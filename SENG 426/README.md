@@ -1,0 +1,12 @@
+# Software Quality Engineering
+- Assignments developed understanding of:
+    - Requirements, delivery, and maintenance of software systems
+    - Modern software engineering practices, such as 
+        - DevOps
+        - Site Reliability Engineering (SRE)
+        - Emphasis on automation, continuous delivery, and continuous deployment   
+    - Planning and achieving quality assurance goals such as 
+        - Reliability
+        - Security
+        - Performance
+        - Scalability for complex software systems
