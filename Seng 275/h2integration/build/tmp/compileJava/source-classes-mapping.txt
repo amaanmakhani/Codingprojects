@@ -1,8 +1,0 @@
-com/example/springboot/HelloController.java
- com.example.springboot.HelloController
-com/example/springboot/domain/Student.java
- com.example.springboot.domain.Student
-com/example/springboot/Application.java
- com.example.springboot.Application
-com/example/springboot/data/StudentRepository.java
- com.example.springboot.data.StudentRepository

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jpacman.LauncherSmokeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-09-14T22:38:39" hostname="DESKTOP-516HH26" time="3.193">
-  <properties/>
-  <testcase name="smokeTest()" classname="jpacman.LauncherSmokeTest" time="3.193"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
