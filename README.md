@@ -13,6 +13,8 @@
   - Programs implemented data structures and algorithms
 - CSC 230 (Assembly)
   - Intro to assembly and embedded systems
+- CSC 360 (C)
+  - Operating Systems
 - CSC 370 (SQL)
   - Database Systems
   - Complex SQL queries using PostgreSQL
