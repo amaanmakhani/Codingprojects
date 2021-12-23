@@ -47,4 +47,9 @@
   - Test scripts used for assignment testing
   
 ## Code contained from the Gradebook app project:
+Gradebook is an IOS application that will enhance student grade tracking and analysis. Gradebook tracks grades for each class within semesters. Grades can then be simulated to view possible outcomes, custom GPA scales can be created to calculate GPA, a to-do list for class events allows users to keep track of completed work, and class events can be viewed in a calendar.
+
 - Currently contained in a private branch, to view please reach out to me.
+- Gradebook is built using Xcode
+- Swift was used along with CocoaPods (SwiftLint, CVCalendar, Firestore, and iOSDropDown)
+- Firestore was used as a cloud database
